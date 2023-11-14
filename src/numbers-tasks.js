@@ -183,8 +183,10 @@ function getParallelepipedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+    num = num.toPrecision(power);
+    num = Number(num).toFixed();
+    return num;
 }
 
 /**
@@ -298,7 +300,12 @@ function getSumToN( n ) {
  *   5   => 5  // 5
  */
 function getSumOfDigits(/* num */) {
-  throw new Error('Not implemented');
+  let sum = 0;
+  let arr = String(num).split("");
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    sum = sum + Number(element);
+  }
 }
 
 /**
@@ -334,8 +341,8 @@ function isPowerOfTwo(num) {
  *   0 => 0
  *   Math.PI / 2 => 1
  */
-function getSine(/* num */) {
-  throw new Error('Not implemented');
+function getSine(num) {
+  return Math.sin(num)
 }
 
 /**
@@ -365,7 +372,7 @@ function numberToStringInBase(number, base) {
  * 12345, 2    => '1.23e+4'
  */
 function toExponential(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+  return number.toExponential(fractionDigits);
 }
 
 /**
@@ -395,8 +402,8 @@ function toFixed(/* number, fractionDigits */) {
  * 12345, 7    => '12345.00'
  * 12.345, 4   => '12.35'
  */
-function toPrecision(/* number, precision */) {
-  throw new Error('Not implemented');
+function toPrecision(number, precision) {
+  return String(number.toPrecision(precision))
 }
 
 /**
@@ -409,8 +416,8 @@ function toPrecision(/* number, precision */) {
  * new Number(5) => 5
  * Number(-5)    => -5
  */
-function getNumberValue(/* number */) {
-  throw new Error('Not implemented');
+function getNumberValue() {
+  return valueOf(number)
 }
 
 /**
@@ -428,8 +435,11 @@ function getNumberValue(/* number */) {
  * 5        => true
  * '5'      => false
  */
-function isNumber(/* number */) {
-  throw new Error('Not implemented');
+function isNumber(number) {
+  if(typeof(number) == num){
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -508,8 +518,8 @@ function isSafeInteger(/* number */) {
  * 5.9  => 5
  * -5.1 => -6
  */
-function roundToSmallestInteger(/* number */) {
-  throw new Error('Not implemented');
+function roundToSmallestInteger(number) {
+  return floor(number)
 }
 
 /**
@@ -522,8 +532,8 @@ function roundToSmallestInteger(/* number */) {
  * 5.1  => 6
  * -5.9 => -5
  */
-function roundToLargestInteger(/* number */) {
-  throw new Error('Not implemented');
+function roundToLargestInteger(number) {
+  return Math.ceil(number)
 }
 
 /**
@@ -537,8 +547,8 @@ function roundToLargestInteger(/* number */) {
  * 5.4  => 5
  * -5.5 => -5
  */
-function roundToNearestInteger(/* number */) {
-  throw new Error('Not implemented');
+function roundToNearestInteger(number) {
+  return Math.round(number);
 }
 
 /**
@@ -552,8 +562,18 @@ function roundToNearestInteger(/* number */) {
  * 5.4  => 5
  * -5.5 => -5
  */
-function getIntegerPartNumber(/* number */) {
-  throw new Error('Not implemented');
+function getIntegerPartNumber(number) {
+  str = String(number);
+  arr = str.split("");
+  result = '';
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+    if(element == '.'){
+      return result;
+    }else{
+      result = result + element;
+    }
+  }
 }
 
 /**
@@ -584,8 +604,12 @@ function getSumOfNumbers( x1, x2, x3) {
  * -5, -6 => -5
  * 0, 5   => 5
  */
-function getMaxNumber(/* firstNumber, secondNumber */) {
-  throw new Error('Not implemented');
+function getMaxNumber(firstNumber, secondNumber) {
+  if(firstNumber > secondNumber){
+    return firstNumber;
+  }else{
+    return secondNumber;
+  }
 }
 
 /**
@@ -632,7 +656,13 @@ function getHypotenuse(/* a, b */) {
  * 15 => 8
  */
 function getCountOfOddNumbers(/* number */) {
-  throw new Error('Not implemented');
+  let sum = 0;
+  for(let i; i <= number; i++){
+    if(i % 2 == 0){
+      sum = sum + 1;
+    }
+  }
+  return sum;
 }
 
 module.exports = {

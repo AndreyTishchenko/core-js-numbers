@@ -52,7 +52,10 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  if(Math.abs(value1) == Math.abs(value2)){
+  if (value1 === value2) {
+    return value1;
+  }
+  if (Math.abs(value1) === Math.abs(value2)) {
     return 0;
   }
   return (
@@ -95,14 +98,9 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(a, b) {
+function getLinearEquationRoot(/* a, b */) {
   let result;
-  if (a === 0) {
-    result = -b;
-  }
-  if (b === 0) {
-    result = 0;
-  }
+
   return result;
 }
 
@@ -141,9 +139,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  const str = String(value);
-  const arr = str.split('');
-  return arr[arr.length - 1];
+  return value % 10;
 }
 
 /**
@@ -175,7 +171,7 @@ function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 function getParallelepipedDiagonal(a, b, c) {
-  return a * a + b * b + c * c;
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2).toFixed(20);
 }
 
 /**
@@ -197,9 +193,11 @@ function getParallelepipedDiagonal(a, b, c) {
  */
 function roundToPowerOfTen(num, pow) {
   let result = num;
+  if (pow === 0) {
+    return result;
+  }
   result = result.toPrecision(pow);
-  result = Number(result).toFixed();
-  return result;
+  return Number(result);
 }
 
 /**
@@ -220,7 +218,7 @@ function roundToPowerOfTen(num, pow) {
  *   17 => true
  */
 function isPrime(n) {
-  for (let i = 0; i < n; i += 1) {
+  for (let i = 2; i < n; i += 1) {
     if (n % i === 0) {
       return false;
     }
@@ -243,8 +241,12 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  const tryToNumber = Number(value);
+  if (tryToNumber) {
+    return tryToNumber;
+  }
+  return def;
 }
 
 /**
@@ -259,10 +261,7 @@ function toNumber(/* value, def */) {
  *   0  => 0
  */
 function getCube(num) {
-  if (num < 0) {
-    return num * num * -1;
-  }
-  return num * num;
+  return num ** 3;
 }
 
 /**
@@ -278,8 +277,10 @@ function getCube(num) {
  *   3  => 2
  *   10 => 55
  */
-function getFibonacciNumber(/* index */) {
-  throw new Error('Not implemented');
+function getFibonacciNumber(index) {
+  const SQRT5 = Math.sqrt(5);
+  const PHI = (SQRT5 + 1) / 2;
+  return Math.floor(PHI ** index / SQRT5 + 0.5);
 }
 
 /**
@@ -334,15 +335,13 @@ function getSumOfDigits(num) {
  */
 function isPowerOfTwo(num) {
   let result = num;
-  let determine = false;
-  while (result === 1) {
-    result /= 2;
+  while (result !== 1) {
     if (result % 2 !== 0) {
-      return determine;
+      return false;
     }
+    result /= 2;
   }
-  determine = true;
-  return determine;
+  return true;
 }
 
 /**
@@ -371,8 +370,7 @@ function getSine(num) {
  * 2, 2    => '10'
  */
 function numberToStringInBase(number, base) {
-  const string = String(number);
-  return parseInt(string, base);
+  return String(number.toString(base));
 }
 
 /**
@@ -400,8 +398,8 @@ function toExponential(number, fractionDigits) {
  * 12345, 2    => '12345.00'
  * 12.345, 1   => '12.3'
  */
-function toFixed(/* number, fractionDigits */) {
-  throw new Error('Not implemented');
+function toFixed(number, fractionDigits) {
+  return number.toFixed(fractionDigits);
 }
 
 /**
@@ -431,7 +429,7 @@ function toPrecision(number, precision) {
  * Number(-5)    => -5
  */
 function getNumberValue(number) {
-  return valueOf(number);
+  return number.valueOf();
 }
 
 /**
@@ -450,13 +448,8 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  const type = typeof number;
-  if (type === 'num') {
-    return true;
-  }
-  return false;
+  return !Number.isNaN(number);
 }
-
 /**
  * Returns a boolean value indicating whether a number is an integer or not.
  *
@@ -469,10 +462,7 @@ function isNumber(number) {
  * '5'  => false
  */
 function isInteger(number) {
-  if (typeof number === 'string' && number % 1 === 0) {
-    return true;
-  }
-  return false;
+  return Number.isInteger(number);
 }
 
 /**
@@ -486,7 +476,7 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  const x = parseInt(str.replace(/[^\d]/g, ''), 10);
+  const x = parseFloat(str);
   return x;
 }
 
@@ -504,8 +494,9 @@ function getFloatOnString(str) {
  * '1.234', 2           => 1
  * '10', 8              => 8
  */
-function getIntegerOnString(/* str, base */) {
-  throw new Error('Not implemented');
+function getIntegerOnString(str, base) {
+  const x = Number.parseInt(str, base);
+  return x;
 }
 
 /**
@@ -519,8 +510,8 @@ function getIntegerOnString(/* str, base */) {
  * 3.5      => false
  * 2 ** 53  => false
  */
-function isSafeInteger(/* number */) {
-  throw new Error('Not implemented');
+function isSafeInteger(number) {
+  return Number.isSafeInteger(number);
 }
 
 /**
@@ -578,17 +569,7 @@ function roundToNearestInteger(number) {
  * -5.5 => -5
  */
 function getIntegerPartNumber(number) {
-  const str = String(number);
-  const arr = str.split('');
-  let result = '';
-  for (let i = 0; i < arr.length; i += 1) {
-    const element = arr[i];
-    if (element === '.') {
-      return result;
-    }
-    result += element;
-  }
-  return result;
+  return Math.trunc(number);
 }
 
 /**
@@ -604,7 +585,7 @@ function getIntegerPartNumber(number) {
  * 0.1, 0.2, 0.3 => 0.6
  */
 function getSumOfNumbers(x1, x2, x3) {
-  return x1 + x2 + x3;
+  return x1 + x2 + x3.toFixed(1);
 }
 
 /**
@@ -620,10 +601,7 @@ function getSumOfNumbers(x1, x2, x3) {
  * 0, 5   => 5
  */
 function getMaxNumber(firstNumber, secondNumber) {
-  if (firstNumber > secondNumber) {
-    return firstNumber;
-  }
-  return secondNumber;
+  return Math.max(firstNumber, secondNumber);
 }
 
 /**
@@ -653,7 +631,7 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  return Math.sqrt(a * a + b * b);
+  return Math.hypot(a, b);
 }
 
 /**
@@ -670,13 +648,19 @@ function getHypotenuse(a, b) {
  * 15 => 8
  */
 function getCountOfOddNumbers(number) {
-  let sum = 0;
-  for (let i; i <= number; i += 1) {
-    if (i % 2 === 0) {
-      sum += 1;
+  let count = 0;
+  let result = number;
+  if (number < 0) {
+    result *= -1;
+  }
+  // console.log(result);
+  for (let i = 0; i <= result; i += 1) {
+    if (i % 2 !== 0) {
+      count += 1;
     }
   }
-  return sum;
+  // console.log(count);
+  return count;
 }
 
 module.exports = {

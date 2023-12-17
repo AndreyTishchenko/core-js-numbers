@@ -98,10 +98,15 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(/* a, b */) {
-  let result;
+function getLinearEquationRoot(a, b) {
+  if (a !== 0 && b !== 0) {
+    return -(b / a);
+  }
 
-  return result;
+  if (a === 0) {
+    return -b;
+  }
+  return 0;
 }
 
 /**
@@ -154,7 +159,7 @@ function getLastDigit(value) {
  * '-525.5'     => -525.5
  */
 function parseNumberFromString(value) {
-  return parseInt(value, 10);
+  return parseFloat(value, 10);
 }
 
 /**
@@ -192,12 +197,7 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  let result = num;
-  if (pow === 0) {
-    return result;
-  }
-  result = result.toPrecision(pow);
-  return Number(result);
+  return Math.pow(10, pow)
 }
 
 /**
@@ -448,7 +448,7 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  return !Number.isNaN(number);
+  return !Number.isNaN(number) && Number.isFinite(number);
 }
 /**
  * Returns a boolean value indicating whether a number is an integer or not.
@@ -476,8 +476,7 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  const x = parseFloat(str);
-  return x;
+  return Number.parseFloat(str);
 }
 
 /**
@@ -585,7 +584,7 @@ function getIntegerPartNumber(number) {
  * 0.1, 0.2, 0.3 => 0.6
  */
 function getSumOfNumbers(x1, x2, x3) {
-  return x1 + x2 + x3.toFixed(1);
+  return (x1 + x2 + x3).toFixed(1);
 }
 
 /**

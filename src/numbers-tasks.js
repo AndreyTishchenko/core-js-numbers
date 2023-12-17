@@ -197,7 +197,7 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 3  => 2000
  */
 function roundToPowerOfTen(num, pow) {
-  return Math.pow(10, pow)
+  return 10 ** pow;
 }
 
 /**

@@ -653,13 +653,11 @@ function getCountOfOddNumbers(number) {
   if (number < 0) {
     result *= -1;
   }
-  // console.log(result);
   for (let i = 0; i <= result; i += 1) {
     if (i % 2 !== 0) {
       count += 1;
     }
   }
-  // console.log(count);
   return count;
 }
 
